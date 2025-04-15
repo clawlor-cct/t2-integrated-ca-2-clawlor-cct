@@ -1,5 +1,10 @@
 package lms.interfaces;
 
-public class NotificationObserver {
-    
+import lms.model.User;
+import lms.model.MemberUser;
+
+public interface NotificationObserver {
+    void addObserver(User user);
+    void removeObserver(User user);   
+    void checkMemberBooks(User user);
 }

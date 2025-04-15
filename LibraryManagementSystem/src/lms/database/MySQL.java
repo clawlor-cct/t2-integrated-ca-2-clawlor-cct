@@ -45,6 +45,7 @@ public class MySQL {
 
             return stmt.executeQuery();
         } catch (SQLException e) {
+            System.out.println("MySQL: Query failed: " + e);
             return null;
         }
     }
@@ -59,6 +60,7 @@ public class MySQL {
 
             return stmt.executeUpdate();
         } catch (SQLException e) {
+            System.out.println("MySQL: Update failed: " + e);
             return 0;
         }
     }

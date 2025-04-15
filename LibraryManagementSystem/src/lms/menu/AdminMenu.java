@@ -1,49 +1,13 @@
 package lms.menu;
 
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import lms.manager.UserManager;
+import lms.model.AdminUser;
 
 public class AdminMenu extends javax.swing.JFrame {
-
-    private void CreateMember() {
-        JPanel panel = new JPanel(new GridLayout(4, 2));
-        JTextField nameField = new JTextField();
-        JTextField emailField = new JTextField();
-        JPasswordField passwordField = new JPasswordField();
-        JPasswordField confirmPasswordField = new JPasswordField();
-        
-        panel.add(new JLabel("Name:"));
-        panel.add(nameField);
-        panel.add(new JLabel("Email:"));
-        panel.add(emailField);
-        panel.add(new JLabel("Password:"));
-        panel.add(passwordField);
-        panel.add(new JLabel("Confirm Password:"));
-        panel.add(confirmPasswordField);
-
-        // Prompt create member pane
-        if (JOptionPane.showConfirmDialog(null, panel, "Create Member", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) != JOptionPane.OK_OPTION) return;
-        
-        while (!new String(passwordField.getPassword()).equals(new String(confirmPasswordField.getPassword()))) {       
-            JPanel passwordMatch = new JPanel(new GridLayout(2, 2));
-            passwordMatch.add(new JLabel("Passwords do not match."));
-            
-            JOptionPane.showMessageDialog(null, passwordMatch, "Error", JOptionPane.ERROR_MESSAGE);
-            if (JOptionPane.showConfirmDialog(null, panel, "Create Member", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) != JOptionPane.OK_OPTION) return;
-        }
-        
-        while(!UserManager.getInstance().createUser(nameField.getText(), "Member", emailField.getText(), new String(passwordField.getPassword()))) {
-            if (JOptionPane.showConfirmDialog(null, panel, "Create Member", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) != JOptionPane.OK_OPTION) return;
-        }
-    }
+    private AdminUser user;
     
-    public AdminMenu() {
+    public AdminMenu(AdminUser user) {
         initComponents();
+        this.user = user;
     }
 
     /**
@@ -55,11 +19,19 @@ public class AdminMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("Create Member");
+        jButton2.setText("Manage Members");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Manage Books");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -71,26 +43,41 @@ public class AdminMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(62, 62, 62)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ManageMembersMenu manageMembersMenu = new ManageMembersMenu();
+        manageMembersMenu.setTitle("");
+        manageMembersMenu.setLocationRelativeTo(null);  // Center menu
+        manageMembersMenu.setVisible(true); // Make menu visible
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CreateMember();
+        ManageBooksMenu manageBooksMenu = new ManageBooksMenu();
+        manageBooksMenu.setTitle("");
+        manageBooksMenu.setLocationRelativeTo(null);  // Center menu
+        manageBooksMenu.setVisible(true); // Make menu visible
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }
